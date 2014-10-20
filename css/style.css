@@ -1,0 +1,40 @@
+body{
+	background-color: #c4c4c4;
+	text-align: center;
+}
+
+.wrapper{
+	border: 1px solid #000;
+	display: inline-block;
+	padding: 4px 2px;
+}
+.row{
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 14px
+}
+.col{
+	width: 50px;
+	height: 50px;
+	line-height: 1px;
+	font-size: 1px;
+	display: inline-block;
+	border: 1px dashed #000;
+	margin: 0 2px;
+	background-color: #fff;
+	-webkit-background-size: contain;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.col.tree{
+	background-image: url(../img/tree.jpg);
+}
+.col.bush{
+	background-image: url(../img/bush.jpg);
+}
+.col.rabbit{
+	background-image: url(../img/rabbit3.gif);
+}
+.col.wolf{
+	background-image: url(../img/wolf.jpg);
+}
