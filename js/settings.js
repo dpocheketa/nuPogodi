@@ -59,7 +59,7 @@ function Settings(){
 		var params = {};
 		for (var key in settingsModel) {
 			var value = document.getElementsByName(key)[0].value;
-			params[key] = value;
+			params[key] = +value;
 		}
 
 		return params;

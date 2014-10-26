@@ -23,7 +23,16 @@ function Field(size){
 		this.render();
 	};
 
-	this.render = function(settings){
+	this.render = function(){
+
+		for (var i = 0; i < arguments.length; i++) {
+			var elemsArr = arguments[i];
+
+			for (var j = 0; j < elemsArr.length; j++) {
+				this.add(elemsArr[j])
+			};
+		};
+
 		dom.renderField(elements);
 	};
 

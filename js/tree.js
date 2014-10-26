@@ -8,6 +8,10 @@ function Tree(params){
 
 	this.age = params.age;
 };
+
+
+
+
 /*
 
 treeModel = {
