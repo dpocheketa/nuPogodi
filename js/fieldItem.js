@@ -1,7 +1,15 @@
-function FieldItem(){
+function FieldItem(x, y){
 
-	this.create = function(position){
-
+	var position = {
+		x: x,
+		y: y
 	};
 
+	this.getPosition = function(){
+		return position;
+	};
+
+	this.getElementName = function(){
+		return "fieldItem";
+	}
 };

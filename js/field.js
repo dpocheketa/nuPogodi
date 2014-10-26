@@ -1,4 +1,4 @@
-function Field(){
+function Field(size){
 	var fieldSize;
 	var elements = [];
 
@@ -9,28 +9,36 @@ function Field(){
 
 		for (var j = 0; j < size; j++) {
 
-			var row = dom.create("div", "row");
 			var rowElements = [];
 
 			for (var i = 0; i < size; i++) {
 
-				var cell = dom.create("div", "col");
-				row.appendChild(cell);
-
-				rowElements.push(cell);
+				rowElements.push("");
 			};
 
 			elements.push(rowElements);
 
-			wrapper.appendChild(row);
 		};
 
-		document.body.appendChild(wrapper);
+		this.render();
+	};
+
+	this.render = function(settings){
+		dom.renderField(elements);
+	};
+
+	this.add = function(elem){
+		var pos = elem.getPosition();
+
+		elements[pos.x][pos.y] = elem.getElementName();
+
 	};
 
 	this.checkPosition = function(position){
 
 		return elements[position.x][position.y].data;
 	};
+
+	this.create(size);
 
 };

@@ -1,42 +1,50 @@
 function Settings(){
 	var settingsModel = {
-		fieldSize: "Size of the field",
-		timeOut: "Timeout beetween Steps",
-		treeCount: "Count of trees",
-		treeLiveTime: "Time(in steps) of tree`s life",
-		bushCount: "Count of bushes",
-		bushLiveTime: "Time(in steps) of bush`s life",
-		wolfStep: "Wolf cells by step",
-		rabbitStep: "Rabbit cells by step",
-		gameSteps: "Game Steps"
+		fieldSize: {
+			fieldName: "Size of the field",
+			defaultValue: 10
+		},
+		timeOut: {
+			fieldName: "Timeout beetween Steps",
+			defaultValue: 1000
+		},
+		treeCount: {
+			fieldName: "Count of trees",
+			defaultValue: 5
+		},
+		treeLiveTime: {
+			fieldName: "Time(in steps) of tree`s life",
+			defaultValue: 10
+		},
+		bushCount: {
+			fieldName: "Count of bushes",
+			defaultValue: 3
+		},
+		bushLiveTime: {
+			fieldName: "Time(in steps) of bush`s life",
+			defaultValue: 5
+		},
+		wolfStep: {
+			fieldName: "Wolf cells by step",
+			defaultValue: 5
+		},
+		rabbitStep: {
+			fieldName: "Rabbit cells by step",
+			defaultValue: 3
+		},
+		gameSteps: {
+			fieldName: "Game Steps",
+			defaultValue: 10
+		},
 	};
 
-	var wrapper;
 	var form;
 
 	this.createForm = function(){
-		wrapper = dom.create("div", "settings-wrap");
-
-		form = dom.create("form", "settings-form");
-
-		for (var key in settingsModel) {
-			var row = createFormRow(key, settingsModel[key]);
-			form.appendChild(row);
-		};
-
-		var submit = dom.create("button", "submit-button");
-		submit.attr("type", "submit");
-		submit.innerHTML = "Let`s Start";
-
-		form.appendChild(submit);
-		wrapper.appendChild(form);
-		document.body.appendChild(wrapper);
+		
+		form = dom.renderForm(form, settingsModel);
 
 		return form;
-	};
-
-	this.formSubmit = function(){
-
 	};
 
 	this.formValidate = function(){
@@ -44,23 +52,17 @@ function Settings(){
 	};
 
 	this.deleteForm = function(){
-		wrapper.parentNode.removeChild(wrapper);
+		dom.deleteForm(form);
 	};	
 
-	function createFormRow(name, label){
-		var row = dom.create("div", "form-row");
-		var inputLabel = dom.create("label", "form-label");
-		var input = dom.create("input", "form-input");
+	this.submitForm = function(){
+		var params = {};
+		for (var key in settingsModel) {
+			var value = document.getElementsByName(key)[0].value;
+			params[key] = value;
+		}
 
-		inputLabel.innerHTML = label;
-		row.appendChild(inputLabel);
-
-		input.attr("type", "text");
-		input.attr("name", name);
-
-		row.appendChild(input);
-
-		return row;
-	};
+		return params;
+	}
 
 };

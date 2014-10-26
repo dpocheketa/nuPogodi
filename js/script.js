@@ -8,11 +8,14 @@ form.addEventListener("submit", function(e){
 
 	if (settings.formValidate()) {
 
+		var params = settings.submitForm();
 		settings.deleteForm()
 
 		field = new Field();
-		field.create(10);
-	}
+		// field.create(10);	
+
+		controller(params);
+	};
 
 });
 
@@ -21,3 +24,5 @@ form.addEventListener("submit", function(e){
 
 
 
+console.log(new Tree({x: 2, y: 4, age: 10}))
+console.log(new Bush({x: 2, y: 4, age: 10}))
