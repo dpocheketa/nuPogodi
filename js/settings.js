@@ -26,15 +26,15 @@ function Settings(){
 		},
 		wolfStep: {
 			fieldName: "Wolf cells by step",
-			defaultValue: 5
+			defaultValue: 1
 		},
 		rabbitStep: {
 			fieldName: "Rabbit cells by step",
-			defaultValue: 3
+			defaultValue: 1
 		},
 		gameSteps: {
 			fieldName: "Game Steps",
-			defaultValue: 20
+			defaultValue: 5
 		},
 	};
 

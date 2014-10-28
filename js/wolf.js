@@ -23,12 +23,14 @@ function Wolf(params){
 		return path;
 	};
 
-	this.run = function(rabbit, fieldsize, fieldElems){
+	this.run = function(rabbit, fieldsize, fieldElems, stepsCount){
 		var path = this.findPath(rabbit, fieldsize, fieldElems);
 //without first item
-		path.shift();
-
 		var newPos = path.shift();
+
+		for (var i = 0; i < stepsCount; i++) {
+			newPos = path.length ? path.shift() : newPos;
+		};
 
 		return this.changePosition(newPos);
 	};
@@ -36,10 +38,9 @@ function Wolf(params){
 	this.checkRabbit = function(rabbit){
 		var wolfCoords = this.getPosition();
 		var rabbitCoords = rabbit.getPosition();
-		// console.log("checkRabbit: ", rabbit)
+
 		var flag = (Math.abs(wolfCoords.x - rabbitCoords.x)<=1) && (Math.abs(wolfCoords.y - rabbitCoords.y)<=1);
 
-console.log("checkRabbit: ", wolfCoords, rabbitCoords, flag);
 		return flag;
 	};
 

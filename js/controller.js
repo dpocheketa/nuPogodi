@@ -81,8 +81,8 @@ console.log("settings: ", settings);
 		bushes.arr = util.increaseAge(bushes);
 		bushes.create(trees.arr);
 
-		wolf.run(rabbit, fieldSize, util.join(trees.arr, bushes.arr));
-		rabbit.run(wolf, fieldSize, util.join(trees.arr, bushes.arr));
+		wolf.run(rabbit, fieldSize, util.join(trees.arr, bushes.arr), settings.wolfStep);
+		rabbit.run(wolf, fieldSize, util.join(trees.arr, bushes.arr), settings.rabbitStep);
 
 		field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 

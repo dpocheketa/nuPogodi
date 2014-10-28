@@ -7,6 +7,9 @@ function Rabbit(params){
 
 	this.findPath = function(wolf, fieldsize, fieldElems){
 		var grid = new PF.Grid(fieldsize, fieldsize);
+		var wolfCoords = wolf.getPosition();
+
+			grid.setWalkableAt(wolfCoords.x, wolfCoords.y, false);
 
 		for (var i = 0; i < fieldElems.length; i++) {
 			var pos = fieldElems[i].getPosition();
@@ -16,20 +19,50 @@ function Rabbit(params){
 		var finder = new PF.AStarFinder({
 				allowDiagonal: true
 			});
-		var wolfCoords = wolf.getPosition();
+
 		var rabbitCoords = this.getPosition();
-		var path = finder.findPath(rabbitCoords.x, rabbitCoords.y, fieldsize - wolfCoords.x, fieldsize - wolfCoords.y, grid);
+		var newPoint = this.findPoint(wolfCoords, fieldsize, fieldElems);
+
+		var path = finder.findPath(rabbitCoords.x, rabbitCoords.y, newPoint.x, newPoint.y, grid);
 
 		return path;
 	};
 
-	this.run = function(wolf, fieldsize, fieldElems){
+	this.run = function(wolf, fieldsize, fieldElems, stepsCount){
 		var path = this.findPath(wolf, fieldsize, fieldElems);
+		var newPos = path.shift();
 //without first item
 
-		path.shift();
-		var newPos = path.shift();
+		for (var i = 0; i < stepsCount; i++) {
+			newPos = path.length ? path.shift() : newPos;
+		};
+
 		return this.changePosition(newPos);
+	};
+
+	this.findPoint = function(wolfCoords, fieldsize, fieldElems){
+		var point = {};
+		var grid = new PF.Grid(fieldsize, fieldsize);
+
+		for (var i = 0; i < fieldElems.length; i++) {
+			var pos = fieldElems[i].getPosition();
+			grid.setWalkableAt(pos.x, pos.y, false);
+		};
+
+		point.x = (fieldsize - wolfCoords.x > wolfCoords.x + 1) ? fieldsize - 1 : 0;
+		point.y = (fieldsize - wolfCoords.y > wolfCoords.y + 1) ? fieldsize - 1 : 0;
+
+		if (isWalkable(point)) {
+			return point;
+		}
+
+		return util.randomPos(fieldsize, fieldElems);
+
+
+		function isWalkable(node){
+	
+			return grid.nodes[node.x][node.y].walkable
+		}
 	};
 };
 
