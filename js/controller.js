@@ -8,10 +8,10 @@ console.log("settings: ", settings);
 		maxCount: settings.treeCount,
 		arr: [],
 		create: function(fieldItems){
-			var treeCount = getRandomInt(this.maxCount - this.arr.length);
+			var treeCount = util.getRandomInt(this.maxCount - this.arr.length);
 
 				for (var i = 0; i < treeCount; i++) {
-					var pos = randomPos(i, fieldSize, join(this.arr, fieldItems));
+					var pos = util.randomPos(i, fieldSize, util.join(this.arr, fieldItems));
 
 					params = pos;
 					params.maxAge = this.liveTime;
@@ -29,10 +29,10 @@ console.log("settings: ", settings);
 		maxCount: settings.bushCount,
 		arr: [],
 		create: function(fieldItems){
-			var bushCount = getRandomInt(this.maxCount - this.arr.length);
+			var bushCount = util.getRandomInt(this.maxCount - this.arr.length);
 
 				for (var i = 0; i < bushCount; i++) {
-					var pos = randomPos(i, fieldSize, join(this.arr, fieldItems));
+					var pos = util.randomPos(i, fieldSize, util.join(this.arr, fieldItems));
 					
 					params = pos;
 					params.maxAge = this.liveTime;
@@ -65,11 +65,11 @@ console.log("settings: ", settings);
 
 	function step(){
 
-		trees.arr = increaseAge(trees);
+		trees.arr = util.increaseAge(trees);
 
 		trees.create(bushes.arr);
 
-		bushes.arr = increaseAge(bushes);
+		bushes.arr = util.increaseAge(bushes);
 
 		bushes.create(trees.arr);
 
@@ -87,70 +87,4 @@ console.log("settings: ", settings);
 
 	// 		clearInterval(timer)
 	// 	});
-};
-
-
-function increaseAge(unit){
-	var newArr = [];
-
-	for (var i = 0; i < unit.arr.length; i++) {
-		unit.arr[i].age++;
-
-		if (unit.arr[i].age > unit.arr[i].getMaxAge()) {
-			delete unit.arr[i];
-		} else {
-
-			newArr.push(unit.arr[i]);
-		};
-	};
-
-	return newArr;
-};
-
-function randomPos(i, max, fieldItems){
-	var pos = {};
-
-	do {
-
-		pos.x = getRandomInt(max);
-		pos.y = getRandomInt(max);
-
-	} while	(!empty(pos, fieldItems));
-
-
-	return pos;
-};
-
-function getRandomInt(max){
-	var min = 0;
-	var val = Math.floor(Math.random() * (max - min)) + min;
-
- 	return val;
-};
-
-function empty(pos, elems){
-	var emptyPos = true;
-
-	for (var i = 0; i < elems.length; i++) {
-		var elemPos = elems[i].getPosition();
-
-		if ((pos.x == elemPos.x) && (pos.y == elemPos.y)) {
-			emptyPos = false;
-		}
-	};
-	
-	return emptyPos;
-};
-
-function join(){
-	var result = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			if (arguments[i]) {
-				result = result.concat(arguments[i])
-			}
-		};
-
-
-	return result;
 };
