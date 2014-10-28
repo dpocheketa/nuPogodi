@@ -24,5 +24,5 @@ form.addEventListener("submit", function(e){
 
 
 
-console.log(new Tree({x: 2, y: 4, age: 10}))
-console.log(new Bush({x: 2, y: 4, age: 10}))
+// console.log(new Tree({x: 2, y: 4, age: 10}))
+// console.log(new Bush({x: 2, y: 4, age: 10}))

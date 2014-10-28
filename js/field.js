@@ -1,5 +1,5 @@
 function Field(size){
-	var fieldSize;
+	var fieldSize = size;
 	var elements = [];
 
 	this.create = function(size){
@@ -59,6 +59,10 @@ function Field(size){
 
 		};
 	};
+
+	this.getSize = function(){
+		return fieldSize;
+	}
 
 	this.create(size);
 

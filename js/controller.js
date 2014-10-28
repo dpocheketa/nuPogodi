@@ -2,12 +2,54 @@ function controller(settings) {
 console.log("settings: ", settings);	
 
 	var field = new Field(settings.fieldSize);
-	// init trees:
-	var trees = initTrees(settings.treeCount, settings.treeLiveTime, settings.fieldSize);
+	var fieldSize = field.getSize();
+	var trees = {
+		liveTime: settings.treeLiveTime,
+		maxCount: settings.treeCount,
+		arr: [],
+		create: function(fieldItems){
+			var treeCount = getRandomInt(this.maxCount - this.arr.length);
 
-	var bushes = initBushes(settings.bushCount, settings.bushLiveTime, settings.fieldSize, trees);
+				for (var i = 0; i < treeCount; i++) {
+					var pos = randomPos(i, fieldSize, join(this.arr, fieldItems));
 
-	field.render(trees, bushes);
+					params = pos;
+					params.maxAge = this.liveTime;
+					params.age = 0;
+
+					this.arr.push(new Tree(params));
+				};
+
+			return this;
+		}
+	};
+
+	var bushes = {
+		liveTime: settings.bushLiveTime,
+		maxCount: settings.bushCount,
+		arr: [],
+		create: function(fieldItems){
+			var bushCount = getRandomInt(this.maxCount - this.arr.length);
+
+				for (var i = 0; i < bushCount; i++) {
+					var pos = randomPos(i, fieldSize, join(this.arr, fieldItems));
+					
+					params = pos;
+					params.maxAge = this.liveTime;
+					params.age = 0;
+
+					this.arr.push(new Bush(params));
+				};
+
+			return this;
+		}
+	};
+
+	trees.create(bushes.arr);
+	bushes.create(trees.arr);
+
+
+	field.render(trees.arr, bushes.arr);
 	// dom.renderInfo(settings);
 
 	var timer = setInterval(function(){
@@ -23,21 +65,15 @@ console.log("settings: ", settings);
 
 	function step(){
 
-		trees = increaseAge(trees);
+		trees.arr = increaseAge(trees);
 
-		if (trees.length < settings.treeCount) {
-			var newTrees = initTrees(settings.treeCount - trees.length, settings.treeliveTime, settings.fieldSize, join(trees, bushes));
-			trees = join(trees, newTrees);
-		}
+		trees.create(bushes.arr);
 
-		bushes = increaseAge(bushes);
+		bushes.arr = increaseAge(bushes);
 
-		if (bushes.length < settings.bushCount) {
-			var newBushes = initBushes(settings.treeCount - trees.length, settings.bushLiveTime, settings.fieldSize, join(trees, bushes));
-			bushes = join(bushes, newBushes);
-		}
+		bushes.create(trees.arr);
 
-		field.render(trees, bushes);
+		field.render(trees.arr, bushes.arr);
 
 	// wolf.run();
 	// rabbit.run();
@@ -53,50 +89,18 @@ console.log("settings: ", settings);
 	// 	});
 };
 
-function initBushes(count, liveTime, fieldSize, fieldItems){
-	var bushes = [];
 
-	for (var i = 0; i < count; i++) {
-		var pos = randomPos(i, fieldSize, join(fieldItems, bushes));
-
-		params = pos;
-		params.maxAge = liveTime;
-		params.age = 0;
-
-		bushes.push(new Bush(params));
-	};
-
-	return bushes;
-};
-
-function initTrees(count, liveTime, fieldSize){
-	var	trees = [];
-	var treeCount = getRandomInt(count);
-
-	for (var i = 0; i < treeCount; i++) {
-		var pos = randomPos(i, fieldSize, trees);
-
-		params = pos;
-		params.maxAge = liveTime;
-		params.age = 0;
-
-		trees.push(new Tree(params));
-	};
-
-	return trees;
-};
-
-function increaseAge(arr, maxCount, fieldSize){
+function increaseAge(unit){
 	var newArr = [];
 
-	for (var i = 0; i < arr.length; i++) {
-		arr[i].age++;
+	for (var i = 0; i < unit.arr.length; i++) {
+		unit.arr[i].age++;
 
-		if (arr[i].age > arr[i].getMaxAge()) {
-			delete arr[i];
+		if (unit.arr[i].age > unit.arr[i].getMaxAge()) {
+			delete unit.arr[i];
 		} else {
 
-			newArr.push(arr[i]);
+			newArr.push(unit.arr[i]);
 		};
 	};
 
@@ -105,6 +109,7 @@ function increaseAge(arr, maxCount, fieldSize){
 
 function randomPos(i, max, fieldItems){
 	var pos = {};
+
 	do {
 
 		pos.x = getRandomInt(max);
@@ -140,9 +145,12 @@ function empty(pos, elems){
 function join(){
 	var result = [];
 
-	for (var i = 0; i < arguments.length; i++) {
-		result = result.concat(arguments[i])
-	};
+		for (var i = 0; i < arguments.length; i++) {
+			if (arguments[i]) {
+				result = result.concat(arguments[i])
+			}
+		};
+
 
 	return result;
 };
