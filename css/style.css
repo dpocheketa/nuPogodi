@@ -1,12 +1,22 @@
 body{
 	background-color: #c4c4c4;
 	text-align: center;
+
 }
 
 .wrapper{
 	border: 1px solid #000;
 	display: inline-block;
 	padding: 4px 2px;
+}
+.info-wrap{
+	display: inline-block;
+	width: 500px;
+	border: 1px solid #000;
+	margin: 0 100px;
+	vertical-align: top;
+	background-color: #fff;
+	border-radius: 5px;
 }
 .row{
 	overflow: hidden;

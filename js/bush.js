@@ -3,7 +3,13 @@ function Bush(params){
 
 	this.getElementName = function(){
 		return "bush";
-	}
+	};
 
 	this.age = params.age;
+
+	var maxAge = params.maxAge;
+
+	this.getMaxAge = function(){
+		return maxAge;
+	};
 };

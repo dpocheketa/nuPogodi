@@ -24,6 +24,7 @@ function Field(size){
 	};
 
 	this.render = function(){
+		this.clearField();
 
 		for (var i = 0; i < arguments.length; i++) {
 			var elemsArr = arguments[i];
@@ -46,6 +47,17 @@ function Field(size){
 	this.checkPosition = function(position){
 
 		return elements[position.x][position.y].data;
+	};
+
+	this.clearField = function(){
+
+		for (var i = 0; i < elements.length; i++) {
+
+			for (var j = 0; j < elements[i].length; j++) {
+				elements[i][j] = "";
+			};
+
+		};
 	};
 
 	this.create(size);

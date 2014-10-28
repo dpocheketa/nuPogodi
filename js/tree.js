@@ -7,6 +7,12 @@ function Tree(params){
 	};
 
 	this.age = params.age;
+
+	var maxAge = params.maxAge;
+
+	this.getMaxAge = function(){
+		return maxAge;
+	};
 };
 
 

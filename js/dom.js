@@ -62,6 +62,21 @@ var dom = {
 		var wrapper = document.querySelector(".wrapper");
 
 		if (wrapper) document.body.removeChild(wrapper);
+	},
+	renderInfo: function(settings){
+		var infoWrapper = dom.create("div", "info-wrap");
+
+		infoWrapper.innerHTML = "there will be game info";
+
+		var stop = dom.create("button", "stop-button");
+		stop.innerHTML = "stop";
+		
+		var stopWrap = dom.create("div", "form-row");
+		stopWrap.appendChild(stop);
+
+		infoWrapper.appendChild(stopWrap);
+
+		document.body.appendChild(infoWrapper);
 	}
 };
 
