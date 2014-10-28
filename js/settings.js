@@ -6,11 +6,11 @@ function Settings(){
 		},
 		timeOut: {
 			fieldName: "Timeout beetween Steps",
-			defaultValue: 1000
+			defaultValue: 500
 		},
 		treeCount: {
 			fieldName: "Count of trees",
-			defaultValue: 5
+			defaultValue: 10
 		},
 		treeLiveTime: {
 			fieldName: "Time(in steps) of tree`s life",
@@ -34,7 +34,7 @@ function Settings(){
 		},
 		gameSteps: {
 			fieldName: "Game Steps",
-			defaultValue: 10
+			defaultValue: 20
 		},
 	};
 

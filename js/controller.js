@@ -58,6 +58,7 @@ console.log("settings: ", settings);
 	var timer = setInterval(function(){
 		if (settings.gameSteps == 0) {
 			clearInterval(timer);
+			alert("rabbit win");
 		};
 
 		step();
@@ -74,11 +75,19 @@ console.log("settings: ", settings);
 		bushes.arr = util.increaseAge(bushes);
 		bushes.create(trees.arr);
 
+		var path = wolf.run(rabbit, fieldSize, util.join(trees.arr, bushes.arr));
+console.log(path);
+console.log(path.shift());
+console.log(path);
+
+		wolf.changePosition(path.shift());
+
 		field.render(trees.arr, bushes.arr, [wolf, rabbit]);
-
-	// wolf.run();
-	// rabbit.run();
-
+		// rabbit.run(wolf, fieldSize, util.join(trees.arr, bushes.arr));
+		if (wolf.checkRabbit(rabbit)) {
+			clearInterval(timer);
+			alert("gameOver wolf win")
+		}
 	};
 
 	// var stopButton = document.querySelector(".stop-button");

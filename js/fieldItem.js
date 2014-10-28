@@ -11,5 +11,12 @@ function FieldItem(x, y){
 
 	this.getElementName = function(){
 		return "fieldItem";
-	}
+	};
+
+	this.changePosition = function(newPos){
+		position.x = newPos[0];
+		position.y = newPos[1];
+
+		return position;
+	};
 };
