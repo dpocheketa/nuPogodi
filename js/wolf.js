@@ -5,7 +5,7 @@ function Wolf(params){
 		return "wolf";
 	};
 
-	this.run = function(rabbit, fieldsize, fieldElems){
+	this.findPath = function(rabbit, fieldsize, fieldElems){
 		var grid = new PF.Grid(fieldsize, fieldsize);
 
 		for (var i = 0; i < fieldElems.length; i++) {
@@ -23,13 +23,14 @@ function Wolf(params){
 		return path;
 	};
 
-	this.moveTo = function(position){
+	this.run = function(rabbit, fieldsize, fieldElems){
+		var path = this.findPath(rabbit, fieldsize, fieldElems);
+//without first item
+		path.shift();
 
-		console.log("pos", this.position);
-		// this.position.x = position.x;
-		// this.position.y = position.y;
+		var newPos = path.shift();
 
-		return this.changePosition(position)
+		return this.changePosition(newPos);
 	};
 
 	this.checkRabbit = function(rabbit){

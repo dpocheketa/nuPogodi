@@ -14,9 +14,12 @@ function FieldItem(x, y){
 	};
 
 	this.changePosition = function(newPos){
-		position.x = newPos[0];
-		position.y = newPos[1];
+		if (newPos) {
 
-		return position;
+			position.x = newPos[0];
+			position.y = newPos[1];
+
+			return position;
+		} else return position;
 	};
 };

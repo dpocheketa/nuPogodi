@@ -5,8 +5,31 @@ function Rabbit(params){
 		return "rabbit";
 	};
 
-	this.run = function(rabbit, trees, bush){
-		console.log(arguments);
+	this.findPath = function(wolf, fieldsize, fieldElems){
+		var grid = new PF.Grid(fieldsize, fieldsize);
+
+		for (var i = 0; i < fieldElems.length; i++) {
+			var pos = fieldElems[i].getPosition();
+			grid.setWalkableAt(pos.x, pos.y, false);
+		};
+
+		var finder = new PF.AStarFinder({
+				allowDiagonal: true
+			});
+		var wolfCoords = wolf.getPosition();
+		var rabbitCoords = this.getPosition();
+		var path = finder.findPath(rabbitCoords.x, rabbitCoords.y, fieldsize - wolfCoords.x, fieldsize - wolfCoords.y, grid);
+
+		return path;
+	};
+
+	this.run = function(wolf, fieldsize, fieldElems){
+		var path = this.findPath(wolf, fieldsize, fieldElems);
+//without first item
+
+		path.shift();
+		var newPos = path.shift();
+		return this.changePosition(newPos);
 	};
 };
 
