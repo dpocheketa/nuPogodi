@@ -84,6 +84,8 @@ console.log(path);
 
 		field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 		// rabbit.run(wolf, fieldSize, util.join(trees.arr, bushes.arr));
+
+
 		if (wolf.checkRabbit(rabbit)) {
 			clearInterval(timer);
 			alert("gameOver wolf win")

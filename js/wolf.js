@@ -13,7 +13,9 @@ function Wolf(params){
 			grid.setWalkableAt(pos.x, pos.y, false);
 		};
 
-		var finder = new PF.AStarFinder();
+		var finder = new PF.AStarFinder({
+				allowDiagonal: true
+			});
 		var wolfCoords = this.getPosition();
 		var rabbitCoords = rabbit.getPosition();
 		var path = finder.findPath(wolfCoords.x, wolfCoords.y, rabbitCoords.x, rabbitCoords.y, grid);
@@ -34,8 +36,10 @@ function Wolf(params){
 		var wolfCoords = this.getPosition();
 		var rabbitCoords = rabbit.getPosition();
 		// console.log("checkRabbit: ", rabbit)
+		var flag = (Math.abs(wolfCoords.x - rabbitCoords.x)<=1) && (Math.abs(wolfCoords.y - rabbitCoords.y)<=1);
 
-		return (wolfCoords.x - rabbitCoords.x <=1) && (wolfCoords.y - rabbitCoords.x <= 1)
+console.log("checkRabbit: ", wolfCoords, rabbitCoords, flag);
+		return flag;
 	};
 
 
