@@ -1,18 +1,18 @@
 function Tree(params){
 
+	var maxAge = params.maxAge;
+
 	FieldItem.apply(this, [params.x, params.y]);
 
 	this.getElementName = function(){
 		return "tree";
 	};
 
-	this.age = params.age;
-
-	var maxAge = params.maxAge;
-
 	this.getMaxAge = function(){
 		return maxAge;
 	};
+
+	this.age = params.age;
 };
 
 

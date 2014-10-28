@@ -11,7 +11,7 @@ console.log("settings: ", settings);
 			var treeCount = util.getRandomInt(this.maxCount - this.arr.length);
 
 				for (var i = 0; i < treeCount; i++) {
-					var pos = util.randomPos(i, fieldSize, util.join(this.arr, fieldItems));
+					var pos = util.randomPos(fieldSize, util.join(this.arr, fieldItems));
 
 					params = pos;
 					params.maxAge = this.liveTime;
@@ -32,7 +32,7 @@ console.log("settings: ", settings);
 			var bushCount = util.getRandomInt(this.maxCount - this.arr.length);
 
 				for (var i = 0; i < bushCount; i++) {
-					var pos = util.randomPos(i, fieldSize, util.join(this.arr, fieldItems));
+					var pos = util.randomPos(fieldSize, util.join(this.arr, fieldItems));
 					
 					params = pos;
 					params.maxAge = this.liveTime;
@@ -44,12 +44,15 @@ console.log("settings: ", settings);
 			return this;
 		}
 	};
+	var rdmPos = util.randomPos(fieldSize);
+	var wolf = new Wolf(rdmPos);
+	var rabbitParams = util.randomPos(fieldSize, wolf);
+	var rabbit = new Rabbit(rabbitParams);
 
-	trees.create(bushes.arr);
-	bushes.create(trees.arr);
+	trees.create(bushes.arr, wolf, rabbit);
+	bushes.create(trees.arr, wolf, rabbit);
 
-
-	field.render(trees.arr, bushes.arr);
+	field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 	// dom.renderInfo(settings);
 
 	var timer = setInterval(function(){
@@ -66,14 +69,12 @@ console.log("settings: ", settings);
 	function step(){
 
 		trees.arr = util.increaseAge(trees);
-
 		trees.create(bushes.arr);
 
 		bushes.arr = util.increaseAge(bushes);
-
 		bushes.create(trees.arr);
 
-		field.render(trees.arr, bushes.arr);
+		field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 
 	// wolf.run();
 	// rabbit.run();
