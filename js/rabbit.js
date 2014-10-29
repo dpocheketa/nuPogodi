@@ -49,14 +49,26 @@ function Rabbit(params){
 			grid.setWalkableAt(pos.x, pos.y, false);
 		};
 
+		var finder = new PF.AStarFinder({
+				allowDiagonal: true
+			});
+
 		point.x = (fieldsize - wolfCoords.x > wolfCoords.x + 1) ? fieldsize - 1 : 0;
 		point.y = (fieldsize - wolfCoords.y > wolfCoords.y + 1) ? fieldsize - 1 : 0;
 
 		if (isWalkable(point)) {
 			return point;
+		} else {
+			do {
+				var pos = this.getPosition();
+				point = util.randomPos(fieldsize, fieldElems);
+
+				var path = finder.findPath(pos.x, pos.y, point.x, point.y, grid);
+
+			} while (!isWalkable(point) && path.length <= 3);
 		}
 
-		return util.randomPos(fieldsize, fieldElems);
+		return point;
 
 
 		function isWalkable(node){
