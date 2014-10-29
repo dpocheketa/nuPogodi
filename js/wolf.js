@@ -1,5 +1,5 @@
 function Wolf(params){
-	FieldItem.apply(this, [params.x, params.y]);
+	Animal.call(this, params);
 
 	this.getElementName = function(){
 		return "wolf";
@@ -7,7 +7,6 @@ function Wolf(params){
 
 	this.findPath = function(rabbit, fieldsize, fieldElems){
 		var grid = new PF.Grid(fieldsize, fieldsize);
-
 		for (var i = 0; i < fieldElems.length; i++) {
 			var pos = fieldElems[i].getPosition();
 			grid.setWalkableAt(pos.x, pos.y, false);

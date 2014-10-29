@@ -1,16 +1,9 @@
 function Bush(params){
 	
-	var maxAge = params.maxAge;
-
-	FieldItem.apply(this, [params.x, params.y]);
+	Plant.call(this, params);
 
 	this.getElementName = function(){
 		return "bush";
 	};
 
-	this.getMaxAge = function(){
-		return maxAge;
-	};
-
-	this.age = params.age;
 };

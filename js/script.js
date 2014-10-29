@@ -12,17 +12,9 @@ form.addEventListener("submit", function(e){
 		settings.deleteForm()
 
 		field = new Field();
-		// field.create(10);	
 
 		controller(params);
 	};
 
 });
 
-
-
-
-
-
-// console.log(new Tree({x: 2, y: 4, age: 10}))
-// console.log(new Bush({x: 2, y: 4, age: 10}))

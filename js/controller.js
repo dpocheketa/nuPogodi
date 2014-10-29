@@ -1,6 +1,4 @@
 function controller(settings) {
-console.log("settings: ", settings);	
-
 	var field = new Field(settings.fieldSize);
 	var fieldSize = field.getSize();
 	var trees = {
@@ -51,12 +49,11 @@ console.log("settings: ", settings);
 
 	trees.create(bushes.arr, wolf, rabbit);
 	bushes.create(trees.arr, wolf, rabbit);
-
 	field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 	// dom.renderInfo(settings);
 
 	var timer = setInterval(function(){
-		console.log(settings.gameSteps--);
+		settings.gameSteps--;
 
 		if (settings.gameSteps == 0) {
 			clearInterval(timer);
@@ -83,7 +80,6 @@ console.log("settings: ", settings);
 
 		wolf.run(rabbit, fieldSize, util.join(trees.arr, bushes.arr), settings.wolfStep);
 		rabbit.run(wolf, fieldSize, util.join(trees.arr, bushes.arr), settings.rabbitStep);
-
 		field.render(trees.arr, bushes.arr, [wolf, rabbit]);
 
 
@@ -91,11 +87,4 @@ console.log("settings: ", settings);
 		
 	};
 
-	// var stopButton = document.querySelector(".stop-button");
-
-	// 	stopButton.addEventListener("click", function(e){
-	// 		e.preventDefault();
-
-	// 		clearInterval(timer)
-	// 	});
 };

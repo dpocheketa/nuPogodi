@@ -45,14 +45,13 @@ var util = {
 
 		return result;
 	},
-
 	increaseAge: function(unit){
 		var newArr = [];
 
 		for (var i = 0; i < unit.arr.length; i++) {
-			unit.arr[i].age++;
+			var newAge = unit.arr[i].increaseAge();
 
-			if (unit.arr[i].age > unit.arr[i].getMaxAge()) {
+			if (!newAge) {
 				delete unit.arr[i];
 			} else {
 

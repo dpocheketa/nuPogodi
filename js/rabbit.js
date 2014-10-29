@@ -1,5 +1,5 @@
 function Rabbit(params){
-	FieldItem.apply(this, [params.x, params.y]);
+	Animal.call(this, params);
 
 	this.getElementName = function(){
 		return "rabbit";
